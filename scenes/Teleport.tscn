@@ -1,13 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://jgkjvhe1uruc"]
+[gd_scene load_steps=5 format=3 uid="uid://jgkjvhe1uruc"]
 
 [ext_resource type="Script" uid="uid://dyl4pxpnbp7ih" path="res://scripts/Teleport.cs" id="1_s3e4k"]
 [ext_resource type="PackedScene" uid="uid://vqxt4bofofqy" path="res://scenes/Progress.tscn" id="2_026p2"]
+[ext_resource type="PackedScene" uid="uid://d14il2rkd0v7l" path="res://scenes/Portal.tscn" id="2_xwgga"]
+[ext_resource type="AudioStream" uid="uid://spjsynmkawi0" path="res://sounds/Fantasy UI Vol (25).wav" id="3_026p2"]
 
-[node name="Teleport" type="Node2D"]
+[node name="Teleport" type="Control" node_paths=PackedStringArray("ProgressBar", "ReadySound")]
+layout_mode = 3
+anchors_preset = 0
+scale = Vector2(4, 4)
 script = ExtResource("1_s3e4k")
-
-[node name="Timer" type="Timer" parent="."]
+CooldownTime = 5.0
+ProgressBar = NodePath("Progress")
+ReadySound = NodePath("AudioStreamPlayer")
+ChanceToSpawn = 1.0
+Portal = ExtResource("2_xwgga")
 
 [node name="Progress" parent="." instance=ExtResource("2_026p2")]
+layout_mode = 1
 offset_right = 48.0
 offset_bottom = 16.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_026p2")
+volume_db = -17.0

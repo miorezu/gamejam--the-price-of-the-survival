@@ -12,6 +12,7 @@ public partial class Player : CharacterBody2D
     [Export] public CpuParticles2D FootStepsParticles;
     [Export] public Area2D InteractableArea;
     [Export] public AudioStreamPlayer Quack;
+    [Export] public Teleport TeleportSkill;
 
     public override void _Ready()
     {
@@ -32,7 +33,7 @@ public partial class Player : CharacterBody2D
     {
         if (Input.IsActionJustPressed("RMB"))
         {
-            Teleport(GetGlobalMousePosition());
+            TryTeleport();
         }
     }
 
@@ -67,6 +68,7 @@ public partial class Player : CharacterBody2D
         {
             SwitchToGoose();
         }
+
         await ToSignal(GetTree().CreateTimer(buff.BuffTime), "timeout");
         Speed = NormalSpeed;
         SwitchToNormal();
@@ -107,7 +109,6 @@ public partial class Player : CharacterBody2D
     {
         Move();
         MoveAndSlide();
-        GD.Print(Speed);
     }
 
     private void DisplayIdle()
@@ -142,8 +143,11 @@ public partial class Player : CharacterBody2D
         }
     }
 
-    private void Teleport(Vector2 mousePosition)
+    private void TryTeleport()
     {
-        GlobalPosition = mousePosition;
+        if (TeleportSkill != null)
+        {
+            TeleportSkill.Use(this, GetGlobalMousePosition());
+        }
     }
 }
