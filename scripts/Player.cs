@@ -28,6 +28,14 @@ public partial class Player : CharacterBody2D
         InteractableArea.AreaEntered -= InteractableAreaOnAreaEntered;
     }
 
+    public override void _Input(InputEvent @event)
+    {
+        if (Input.IsActionJustPressed("RMB"))
+        {
+            Teleport(GetGlobalMousePosition());
+        }
+    }
+
     private void InteractableAreaOnAreaEntered(Area2D area)
     {
         if (area is InteractableComponent component)
@@ -132,5 +140,10 @@ public partial class Player : CharacterBody2D
         {
             Audio.Play();
         }
+    }
+
+    private void Teleport(Vector2 mousePosition)
+    {
+        GlobalPosition = mousePosition;
     }
 }

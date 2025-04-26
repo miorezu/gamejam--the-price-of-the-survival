@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://vqxt4bofofqy"]
+
+[ext_resource type="Texture2D" uid="uid://dy8uy8sxo1vlh" path="res://sprites/Effects/Pixel UI pack 3/BottomTeleportCooldawn.png" id="1_6vt08"]
+[ext_resource type="Texture2D" uid="uid://53g1t5dm53rj" path="res://sprites/Effects/Pixel UI pack 3/ProgressTeleportCooldawn.png" id="2_eo6f8"]
+
+[node name="Progress" type="TextureProgressBar"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_under = ExtResource("1_6vt08")
+texture_progress = ExtResource("2_eo6f8")
