@@ -1,9 +1,11 @@
-[gd_scene load_steps=28 format=3 uid="uid://dyroiteeyjytp"]
+[gd_scene load_steps=30 format=3 uid="uid://dyroiteeyjytp"]
 
 [ext_resource type="Script" uid="uid://da1fplosjaptk" path="res://scripts/Player.cs" id="1_dqkch"]
 [ext_resource type="Texture2D" uid="uid://bc8virxd07duf" path="res://sprites/Wizard Pack/Death.png" id="2_qlg0r"]
 [ext_resource type="Texture2D" uid="uid://bbm2ej8l5qjwv" path="res://sprites/Wizard Pack/Idle.png" id="3_tuyoq"]
 [ext_resource type="Texture2D" uid="uid://bkodexgti646c" path="res://sprites/Wizard Pack/Run.png" id="4_fjrip"]
+[ext_resource type="Script" uid="uid://c8l2rndqtqbxk" path="res://scripts/Camera.cs" id="5_qlg0r"]
+[ext_resource type="AudioStream" uid="uid://defxawq600hwx" path="res://sounds/DIRT - Walk 3.wav" id="6_tuyoq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2hs0m"]
 atlas = ExtResource("2_qlg0r")
@@ -172,20 +174,51 @@ animations = [{
 }],
 "loop": true,
 "name": &"Run",
-"speed": 12.0
+"speed": 7.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_smehm"]
-height = 22.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qlg0r"]
+size = Vector2(38, 54)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("Sprite", "Audio", "FootStepsParticles")]
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_dqkch")
+Speed = 100
+Sprite = NodePath("AnimatedSprite2D")
+Audio = NodePath("AudioStreamPlayer")
+FootStepsParticles = NodePath("CPUParticles2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(6, -46)
 sprite_frames = SubResource("SpriteFrames_qtqh7")
-animation = &"Run"
+animation = &"Idle"
+frame_progress = 0.0117887
+offset = Vector2(2.6, 0)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2.5, 2.5)
+process_callback = 0
+script = ExtResource("5_qlg0r")
+ZoomValue = 0.7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -15)
-shape = SubResource("CapsuleShape2D_smehm")
+y_sort_enabled = true
+position = Vector2(-11, 19)
+shape = SubResource("RectangleShape2D_qlg0r")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_tuyoq")
+volume_db = -23.0
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(-4, 50)
+amount = 25
+speed_scale = 2.0
+randomness = 0.3
+emission_shape = 3
+emission_rect_extents = Vector2(10, 1)
+direction = Vector2(-1, 0)
+gravity = Vector2(0, 0)
+initial_velocity_max = 30.0
+scale_amount_min = 0.0
+scale_amount_max = 1.5
+color = Color(0.314875, 0.396362, 0.186672, 1)
