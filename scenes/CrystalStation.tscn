@@ -1,0 +1,77 @@
+[gd_scene load_steps=11 format=3 uid="uid://bw6s1padjqn13"]
+
+[ext_resource type="Script" uid="uid://uajmvxlcvr7s" path="res://scripts/CrystalStation.cs" id="1_18w5w"]
+[ext_resource type="Texture2D" uid="uid://ctco4wgrt3yot" path="res://sprites/Tilesets/MagicMarket/Animations/Crystal.png" id="1_rfaiq"]
+[ext_resource type="PackedScene" uid="uid://drjjku3svgnt2" path="res://scenes/EnergyBar.tscn" id="3_kcpdb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5fto1"]
+atlas = ExtResource("1_rfaiq")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_18w5w"]
+atlas = ExtResource("1_rfaiq")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kcpdb"]
+atlas = ExtResource("1_rfaiq")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_btpws"]
+atlas = ExtResource("1_rfaiq")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1empt"]
+atlas = ExtResource("1_rfaiq")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3rpwc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5fto1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_18w5w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kcpdb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_btpws")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1empt")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 3.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i6wst"]
+height = 24.0
+
+[node name="CrystalStation" type="StaticBody2D" node_paths=PackedStringArray("EnergyBar", "Timer", "AnimatedSprite")]
+scale = Vector2(2, 2)
+script = ExtResource("1_18w5w")
+EnergyBar = NodePath("EnergyBar")
+Timer = NodePath("Timer")
+AnimatedSprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_3rpwc")
+animation = &"Idle"
+frame_progress = 0.839661
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_i6wst")
+
+[node name="EnergyBar" parent="." instance=ExtResource("3_kcpdb")]
+offset_left = 14.0
+offset_top = -7.0
+offset_right = 20.0
+offset_bottom = 41.0
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true

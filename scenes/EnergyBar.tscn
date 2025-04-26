@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://drjjku3svgnt2"]
+
+[ext_resource type="Texture2D" uid="uid://btphyyq2ae8tx" path="res://sprites/Effects/Pixel UI pack 3/UnderEnergy.png" id="1_x0fs6"]
+[ext_resource type="Texture2D" uid="uid://bt15ggh168a10" path="res://sprites/Effects/Pixel UI pack 3/ProgressEnergy.png" id="2_okmnv"]
+
+[node name="EnergyBar" type="TextureProgressBar"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.3, 0.3)
+value = 60.0
+fill_mode = 3
+texture_under = ExtResource("1_x0fs6")
+texture_progress = ExtResource("2_okmnv")
