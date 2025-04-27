@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://bw6s1padjqn13"]
+[gd_scene load_steps=27 format=3 uid="uid://u0no1kuh3j2g"]
 
 [ext_resource type="Script" uid="uid://uajmvxlcvr7s" path="res://scripts/CrystalStation.cs" id="1_18w5w"]
 [ext_resource type="Texture2D" uid="uid://ctco4wgrt3yot" path="res://sprites/Tilesets/MagicMarket/Animations/Crystal.png" id="1_rfaiq"]
-[ext_resource type="PackedScene" uid="uid://jq70b0sx8r43" path="res://scenes/InteractableComponent.tscn" id="2_1empt"]
+[ext_resource type="PackedScene" path="res://scenes/InteractableComponent.tscn" id="2_1empt"]
 [ext_resource type="Texture2D" uid="uid://djc70lllkq0ka" path="res://sprites/Tilesets/MagicMarket/Animations/DestroyCristal.png" id="2_kcpdb"]
-[ext_resource type="PackedScene" uid="uid://drjjku3svgnt2" path="res://scenes/EnergyBar.tscn" id="3_kcpdb"]
+[ext_resource type="PackedScene" path="res://scenes/EnergyBar.tscn" id="3_kcpdb"]
+[ext_resource type="Texture2D" uid="uid://ctvc16ycdpduk" path="res://sprites/Crystaldestroy.png" id="4_3rpwc"]
 [ext_resource type="AudioStream" uid="uid://c63qvsay1n56" path="res://sounds/breaking-glass-83809.mp3" id="5_btpws"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3rpwc"]
@@ -14,6 +15,46 @@ height = 41.0
 [sub_resource type="AtlasTexture" id="AtlasTexture_3rpwc"]
 atlas = ExtResource("2_kcpdb")
 region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6wst"]
+atlas = ExtResource("4_3rpwc")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5j6h"]
+atlas = ExtResource("4_3rpwc")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0qr4d"]
+atlas = ExtResource("4_3rpwc")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ur6vi"]
+atlas = ExtResource("4_3rpwc")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_232og"]
+atlas = ExtResource("4_3rpwc")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dso1r"]
+atlas = ExtResource("4_3rpwc")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4512x"]
+atlas = ExtResource("4_3rpwc")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8aan5"]
+atlas = ExtResource("4_3rpwc")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i12fh"]
+atlas = ExtResource("4_3rpwc")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6o3g4"]
+atlas = ExtResource("4_3rpwc")
+region = Rect2(288, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5fto1"]
 atlas = ExtResource("1_rfaiq")
@@ -44,6 +85,41 @@ animations = [{
 "loop": true,
 "name": &"Broken",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i6wst")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j5j6h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0qr4d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ur6vi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_232og")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dso1r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4512x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8aan5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i12fh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6o3g4")
+}],
+"loop": false,
+"name": &"Destroing",
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -91,8 +167,9 @@ debug_color = Color(0.835891, 0.333337, 0.51974, 0.42)
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_3rpwc")
-animation = &"Broken"
-frame_progress = 0.606968
+animation = &"Destroing"
+frame = 9
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)
@@ -104,6 +181,7 @@ offset_left = 14.0
 offset_top = -7.0
 offset_right = 20.0
 offset_bottom = 41.0
+value = 5.0
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
