@@ -507,9 +507,8 @@ Quack = NodePath("quack")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_qtqh7")
-animation = &"EndTeleport"
-frame = 3
-frame_progress = 0.764894
+animation = &"StartTeleport"
+frame_progress = 0.304595
 offset = Vector2(2.6, 0)
 
 [node name="Camera2D" type="Camera2D" parent="."]

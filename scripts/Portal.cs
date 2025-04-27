@@ -16,12 +16,9 @@ public partial class Portal : Node2D
         LiveTimer.Timeout -= LiveTimerOnTimeout;
     }
 
-    public override void _Process(double delta)
+    public override void _Ready()
     {
-        if (!Audio.Playing)
-        {
             Audio.Play();
-        }
     }
 
     private void LiveTimerOnTimeout()

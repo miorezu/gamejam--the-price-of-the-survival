@@ -10,10 +10,10 @@ layout_mode = 3
 anchors_preset = 0
 scale = Vector2(4, 4)
 script = ExtResource("1_s3e4k")
-CooldownTime = 5.0
+CooldownTime = 1.0
 ProgressBar = NodePath("Progress")
 ReadySound = NodePath("AudioStreamPlayer")
-ChanceToSpawn = 0.6
+ChanceToSpawn = 0.3
 Portal = ExtResource("2_xwgga")
 
 [node name="Progress" parent="." instance=ExtResource("2_026p2")]

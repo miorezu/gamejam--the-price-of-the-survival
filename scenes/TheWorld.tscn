@@ -730,8 +730,14 @@ size_flags_vertical = 3
 [node name="Player" parent="." node_paths=PackedStringArray("TeleportSkill") instance=ExtResource("1_ox4vl")]
 TeleportSkill = NodePath("../CanvasLayer/Teleport")
 
+[node name="CrystalStation2" parent="." instance=ExtResource("3_80w00")]
+position = Vector2(218, 113)
+
 [node name="CrystalStation" parent="." instance=ExtResource("3_80w00")]
 position = Vector2(274, 33)
+
+[node name="CrystalStation3" parent="." instance=ExtResource("3_80w00")]
+position = Vector2(369, 70)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 

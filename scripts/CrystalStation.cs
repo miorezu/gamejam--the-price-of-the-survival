@@ -33,6 +33,7 @@ public partial class CrystalStation : StaticBody2D
         BreakingAudio.Play();
         AnimatedSprite.Play("Broken");
         SetProcess(false);
+        Timer.Stop();
     }
 
     private void TimerOnTimeout()
