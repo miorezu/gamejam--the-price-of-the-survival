@@ -12,6 +12,7 @@ public partial class CrystalStation : StaticBody2D
     [Export] public InteractableComponent InteractableComponent;
     [Export] public PlayerInventory.ItemTypes Type;
     [Export] public int EnergyFromItem;
+    [Export] public HurtBox HurtBox;
 
     public override void _EnterTree()
     {
@@ -28,12 +29,13 @@ public partial class CrystalStation : StaticBody2D
     public override void _Ready()
     {
         EnergyBar.Value = EnergyBar.MaxValue = MaxEnergy;
+        HurtBox.MaxHp = (int)EnergyBar.Value;
     }
 
     public override void _Process(double delta)
     {
         AnimatedSprite.Play("Idle");
-        if (EnergyBar.Value == 0)
+        if (EnergyBar.Value == 0 )
         {
             Die();
         }

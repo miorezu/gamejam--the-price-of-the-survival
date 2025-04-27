@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://u0no1kuh3j2g"]
+[gd_scene load_steps=29 format=3 uid="uid://u0no1kuh3j2g"]
 
 [ext_resource type="Script" uid="uid://uajmvxlcvr7s" path="res://scripts/CrystalStation.cs" id="1_18w5w"]
 [ext_resource type="Texture2D" uid="uid://ctco4wgrt3yot" path="res://sprites/Tilesets/MagicMarket/Animations/Crystal.png" id="1_rfaiq"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://drjjku3svgnt2" path="res://scenes/EnergyBar.tscn" id="3_kcpdb"]
 [ext_resource type="Texture2D" uid="uid://ctvc16ycdpduk" path="res://sprites/Crystaldestroy.png" id="4_3rpwc"]
 [ext_resource type="AudioStream" uid="uid://c63qvsay1n56" path="res://sounds/breaking-glass-83809.mp3" id="5_btpws"]
+[ext_resource type="PackedScene" uid="uid://bjb4veojbibf2" path="res://scenes/HurtBox.tscn" id="6_i6wst"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3rpwc"]
 radius = 15.0
@@ -142,10 +143,13 @@ animations = [{
 "speed": 3.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_j5j6h"]
+radius = 7.5
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i6wst"]
 height = 24.0
 
-[node name="CrystalStation" type="StaticBody2D" node_paths=PackedStringArray("EnergyBar", "Timer", "AnimatedSprite", "BreakingAudio", "InteractableComponent")]
+[node name="CrystalStation" type="StaticBody2D" node_paths=PackedStringArray("EnergyBar", "Timer", "AnimatedSprite", "BreakingAudio", "InteractableComponent", "HurtBox")]
 y_sort_enabled = true
 scale = Vector2(2, 2)
 script = ExtResource("1_18w5w")
@@ -157,6 +161,7 @@ BreakingAudio = NodePath("AudioStreamPlayer")
 EnergyPerSecond = 3
 InteractableComponent = NodePath("InteractableComponent")
 EnergyFromItem = 15
+HurtBox = NodePath("HurtBox")
 
 [node name="InteractableComponent" parent="." instance=ExtResource("2_1empt")]
 MultiplyUse = true
@@ -169,6 +174,11 @@ debug_color = Color(0.835891, 0.333337, 0.51974, 0.42)
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_3rpwc")
 animation = &"Destroing"
+
+[node name="HurtBox" parent="." instance=ExtResource("6_i6wst")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CapsuleShape2D_j5j6h")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)

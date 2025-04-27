@@ -16,6 +16,7 @@ public partial class Player : CharacterBody2D
     [Export] public Teleport TeleportSkill;
     private List<InteractableComponent> _nearbyObjects = [];
     [Export] public PlayerInventory Inventory;
+    [Export] public PackedScene DistanceSpell;
 
     public bool IsTeleporting = false;
 
@@ -50,6 +51,13 @@ public partial class Player : CharacterBody2D
                 return;
             body.Interact(this);
             _nearbyObjects.Remove(body);
+        }
+        
+        if (Input.IsActionJustPressed("LMB"))
+        {
+            var distanceSpell = DistanceSpell.Instantiate<Node2D>();
+            distanceSpell.GlobalPosition = GlobalPosition;
+            GetParent().AddChild(distanceSpell);
         }
 
     }
