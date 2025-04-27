@@ -11,6 +11,7 @@ public partial class CrystalStation : StaticBody2D
     [Export] public InteractableComponent InteractableComponent;
     [Export] public PlayerInventory.ItemTypes Type;
     [Export] public int EnergyFromItem;
+    
 
     public override void _EnterTree()
     {
@@ -36,7 +37,8 @@ public partial class CrystalStation : StaticBody2D
     private void Die()
     {
         BreakingAudio.Play();
-        AnimatedSprite.Play("Broken");
+        AnimatedSprite.Play("Destroing");
+        AnimatedSprite.AnimationFinished += () =>  AnimatedSprite.Play("Broken");
         SetProcess(false);
         Timer.Stop();
     }
