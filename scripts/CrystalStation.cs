@@ -37,6 +37,6 @@ public partial class CrystalStation : StaticBody2D
 
     private void TimerOnTimeout()
     {
-        EnergyBar.Value -= 10;
+        EnergyBar.Value -= 3;
     }
 }

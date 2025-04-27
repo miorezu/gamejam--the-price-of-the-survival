@@ -5,7 +5,7 @@ public partial class Player : CharacterBody2D
 {
     [Export] public int Speed;
     [Export] public int NormalSpeed;
-    private AnimatedSprite2D _sprite;
+    public AnimatedSprite2D Sprite;
     [Export] public AnimatedSprite2D GooseSprite;
     [Export] public AnimatedSprite2D NormalSprite;
     [Export] public AudioStreamPlayer Audio;
@@ -13,10 +13,11 @@ public partial class Player : CharacterBody2D
     [Export] public Area2D InteractableArea;
     [Export] public AudioStreamPlayer Quack;
     [Export] public Teleport TeleportSkill;
+    public bool IsTeleporting = false;
 
     public override void _Ready()
     {
-        _sprite = NormalSprite;
+        Sprite = NormalSprite;
     }
 
     public override void _EnterTree()
@@ -78,20 +79,20 @@ public partial class Player : CharacterBody2D
     {
         NormalSprite.Visible = false;
         GooseSprite.Visible = true;
-        _sprite = GooseSprite;
+        Sprite = GooseSprite;
     }
 
     private void SwitchToNormal()
     {
         GooseSprite.Visible = false;
         NormalSprite.Visible = true;
-        _sprite = NormalSprite;
+        Sprite = NormalSprite;
     }
 
     private void Move()
     {
         Vector2 inputDirection = Input.GetVector("A", "D", "W", "S");
-        _sprite.FlipH = inputDirection.X < 0;
+        Sprite.FlipH = inputDirection.X < 0;
         Velocity = inputDirection;
         Velocity = Velocity.Normalized() * Speed;
         if (inputDirection == Vector2.Zero)
@@ -113,21 +114,22 @@ public partial class Player : CharacterBody2D
 
     private void DisplayIdle()
     {
-        _sprite.Play("Idle");
+        if (IsTeleporting) return;
+        Sprite.Play("Idle");
         FootStepsParticles.Emitting = false;
-        _sprite.FlipH = GetLocalMousePosition().X < 0;
+        Sprite.FlipH = GetLocalMousePosition().X < 0;
     }
 
     private void DisplayRun(Vector2 inputDirection)
     {
+        if (IsTeleporting) return;
         FootStepsParticles.Emitting = true;
         FootStepsParticles.Direction = FootStepsParticles.Direction with { X = -1 };
         if (inputDirection.X < 0)
         {
             FootStepsParticles.Direction = FootStepsParticles.Direction with { X = 1 };
         }
-
-        _sprite.Play("Run");
+        Sprite.Play("Run");
     }
 
     private void PlayMusic()
@@ -143,11 +145,15 @@ public partial class Player : CharacterBody2D
         }
     }
 
-    private void TryTeleport()
+    private async void TryTeleport()
     {
-        if (TeleportSkill != null)
-        {
-            TeleportSkill.Use(this, GetGlobalMousePosition());
-        }
+        if (TeleportSkill == null || Sprite == null) return;
+        IsTeleporting = true;
+        Sprite.Play("StartTeleport");
+
+        var timer = GetTree().CreateTimer(1);
+        await ToSignal(timer, "timeout");
+
+        TeleportSkill.Use(this, GetGlobalMousePosition());
     }
 }

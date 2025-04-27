@@ -38,7 +38,7 @@ public partial class Teleport : Control
         ReadySound.Play();
     }
 
-    public void Use(Player player, Vector2 position)
+    public async void Use(Player player, Vector2 position)
     {
         if (_inCooldown)
         {
@@ -52,6 +52,15 @@ public partial class Teleport : Control
         }
 
         player.GlobalPosition = position;
+        if (player.Sprite != null)
+        {
+            player.Sprite.Play("EndTeleport");
+            var timer = GetTree().CreateTimer(0.3);
+            await ToSignal(timer, "timeout");
+        }
+
+        player.IsTeleporting = false;
+        
         StartCooldown();
     }
 
