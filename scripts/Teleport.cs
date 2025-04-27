@@ -9,10 +9,10 @@ public partial class Teleport : Control
     [Export] public AudioStreamPlayer ReadySound;
     [Export] public double ChanceToSpawn;
     [Export] public PackedScene Portal;
-    
+
     private bool _inCooldown;
     private float _currentCooldown;
-    
+
     public override void _Ready()
     {
         ProgressBar.Value = 100;
@@ -24,7 +24,7 @@ public partial class Teleport : Control
         {
             _currentCooldown += (float)delta;
             ProgressBar.Value = Mathf.Clamp((_currentCooldown / CooldownTime) * 100f, 0, 100);
-
+            GD.Print(_currentCooldown);
             if (_currentCooldown >= CooldownTime)
             {
                 _inCooldown = false;
@@ -37,7 +37,7 @@ public partial class Teleport : Control
     {
         ReadySound.Play();
     }
-    
+
     public void Use(Player player, Vector2 position)
     {
         if (_inCooldown)
@@ -50,16 +50,24 @@ public partial class Teleport : Control
         {
             SpawnPortals(player, position);
         }
+
         player.GlobalPosition = position;
         StartCooldown();
     }
-    
-    public bool TrySpawnPortals()
+
+    private void StartCooldown()
+    {
+        _currentCooldown = 0.0f;
+        _inCooldown = true;
+        ProgressBar.Value = 0;
+    }
+
+    private bool TrySpawnPortals()
     {
         return GD.Randf() <= ChanceToSpawn;
     }
 
-    public void SpawnPortals(Player player, Vector2 position)
+    private void SpawnPortals(Player player, Vector2 position)
     {
         var bluePortal = CreatePortal(player.GlobalPosition, "Blue");
         var orangePortal = CreatePortal(new Vector2(position.X, position.Y + 25), "Orange");
@@ -77,12 +85,5 @@ public partial class Teleport : Control
         portalSprite?.Play(animationName);
 
         return portal;
-    }
-
-    private void StartCooldown()
-    {
-        _currentCooldown = 0.0f;
-        _inCooldown = true;
-        ProgressBar.Value = 0;
     }
 }

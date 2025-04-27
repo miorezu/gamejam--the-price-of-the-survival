@@ -6,6 +6,7 @@ public partial class CrystalStation : StaticBody2D
     [Export] public TextureProgressBar EnergyBar;
     [Export] public Timer Timer;
     [Export] public AnimatedSprite2D AnimatedSprite;
+    [Export] public AudioStreamPlayer BreakingAudio;
 
     public override void _EnterTree()
     {
@@ -23,8 +24,15 @@ public partial class CrystalStation : StaticBody2D
         GD.Print(EnergyBar.Value);
         if (EnergyBar.Value == 0)
         {
-            AnimatedSprite.Stop();
+            Die();
         }
+    }
+
+    private void Die()
+    {
+        BreakingAudio.Play();
+        AnimatedSprite.Play("Broken");
+        SetProcess(false);
     }
 
     private void TimerOnTimeout()

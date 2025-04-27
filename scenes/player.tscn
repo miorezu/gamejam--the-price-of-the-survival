@@ -367,7 +367,6 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("GooseSprite", "NormalSprite", "Audio", "FootStepsParticles", "InteractableArea", "Quack")]
-z_as_relative = false
 y_sort_enabled = true
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_dqkch")

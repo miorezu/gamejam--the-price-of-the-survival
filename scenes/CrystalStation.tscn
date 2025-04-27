@@ -1,8 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://bw6s1padjqn13"]
+[gd_scene load_steps=14 format=3 uid="uid://bw6s1padjqn13"]
 
 [ext_resource type="Script" uid="uid://uajmvxlcvr7s" path="res://scripts/CrystalStation.cs" id="1_18w5w"]
 [ext_resource type="Texture2D" uid="uid://ctco4wgrt3yot" path="res://sprites/Tilesets/MagicMarket/Animations/Crystal.png" id="1_rfaiq"]
+[ext_resource type="Texture2D" uid="uid://djc70lllkq0ka" path="res://sprites/Tilesets/MagicMarket/Animations/DestroyCristal.png" id="2_kcpdb"]
 [ext_resource type="PackedScene" uid="uid://drjjku3svgnt2" path="res://scenes/EnergyBar.tscn" id="3_kcpdb"]
+[ext_resource type="AudioStream" uid="uid://c63qvsay1n56" path="res://sounds/breaking-glass-83809.mp3" id="5_btpws"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3rpwc"]
+atlas = ExtResource("2_kcpdb")
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5fto1"]
 atlas = ExtResource("1_rfaiq")
@@ -28,6 +34,14 @@ region = Rect2(128, 0, 32, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_3rpwc")
+}],
+"loop": true,
+"name": &"Broken",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_5fto1")
 }, {
 "duration": 1.0,
@@ -50,17 +64,19 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i6wst"]
 height = 24.0
 
-[node name="CrystalStation" type="StaticBody2D" node_paths=PackedStringArray("EnergyBar", "Timer", "AnimatedSprite")]
+[node name="CrystalStation" type="StaticBody2D" node_paths=PackedStringArray("EnergyBar", "Timer", "AnimatedSprite", "BreakingAudio")]
+y_sort_enabled = true
 scale = Vector2(2, 2)
 script = ExtResource("1_18w5w")
 EnergyBar = NodePath("EnergyBar")
 Timer = NodePath("Timer")
 AnimatedSprite = NodePath("Sprite2D")
+BreakingAudio = NodePath("AudioStreamPlayer")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_3rpwc")
-animation = &"Idle"
-frame_progress = 0.839661
+animation = &"Broken"
+frame_progress = 0.0148052
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)
@@ -75,3 +91,6 @@ offset_bottom = 41.0
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_btpws")

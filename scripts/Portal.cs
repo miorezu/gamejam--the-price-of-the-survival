@@ -4,6 +4,7 @@ using System;
 public partial class Portal : Node2D
 {
     [Export] public Timer LiveTimer;
+    [Export] public AudioStreamPlayer Audio;
 
     public override void _EnterTree()
     {
@@ -13,6 +14,14 @@ public partial class Portal : Node2D
     public override void _ExitTree()
     {
         LiveTimer.Timeout -= LiveTimerOnTimeout;
+    }
+
+    public override void _Process(double delta)
+    {
+        if (!Audio.Playing)
+        {
+            Audio.Play();
+        }
     }
 
     private void LiveTimerOnTimeout()

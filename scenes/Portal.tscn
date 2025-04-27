@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://d14il2rkd0v7l"]
+[gd_scene load_steps=18 format=3 uid="uid://d14il2rkd0v7l"]
 
 [ext_resource type="Script" uid="uid://vkor7rkwe82t" path="res://scripts/Portal.cs" id="1_7bfae"]
 [ext_resource type="Texture2D" uid="uid://b7h6ugl7lnb3k" path="res://sprites/Blue_Portal.png" id="1_k0w37"]
 [ext_resource type="Texture2D" uid="uid://p58rmauichue" path="res://sprites/Orange_Portal.png" id="2_7bfae"]
+[ext_resource type="AudioStream" uid="uid://do0frd5e0ives" path="res://sounds/videoplayback.wav" id="4_bqy53"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bqy53"]
 atlas = ExtResource("1_k0w37")
@@ -101,9 +102,10 @@ animations = [{
 "speed": 6.0
 }]
 
-[node name="Portal" type="Node2D" node_paths=PackedStringArray("LiveTimer")]
+[node name="Portal" type="Node2D" node_paths=PackedStringArray("LiveTimer", "Audio")]
 script = ExtResource("1_7bfae")
 LiveTimer = NodePath("Timer")
+Audio = NodePath("PortalAudio")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 rotation = 1.5708
@@ -114,3 +116,7 @@ animation = &"Orange"
 wait_time = 3.5
 one_shot = true
 autostart = true
+
+[node name="PortalAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_bqy53")
+volume_db = -10.0

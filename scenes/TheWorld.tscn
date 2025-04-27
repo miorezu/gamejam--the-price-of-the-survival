@@ -714,6 +714,7 @@ distance = -1.0
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_qpou0"]
 
 [node name="TheWorld" type="Node2D"]
+y_sort_enabled = true
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 z_index = -4096
