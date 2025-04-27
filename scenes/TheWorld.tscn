@@ -1,15 +1,16 @@
-[gd_scene load_steps=17 format=4 uid="uid://dej53n5hmpa1f"]
+[gd_scene load_steps=18 format=4 uid="uid://dej53n5hmpa1f"]
 
 [ext_resource type="PackedScene" uid="uid://dyroiteeyjytp" path="res://scenes/player.tscn" id="1_ox4vl"]
 [ext_resource type="Texture2D" uid="uid://ctjrvrr81nw0e" path="res://sprites/Tilesets/MagicMarket/Tilesets/TilesetFloor.png" id="1_qpou0"]
 [ext_resource type="PackedScene" uid="uid://jgkjvhe1uruc" path="res://scenes/Teleport.tscn" id="2_h3en7"]
 [ext_resource type="PackedScene" uid="uid://u0no1kuh3j2g" path="res://scenes/CrystalStation.tscn" id="3_80w00"]
-[ext_resource type="PackedScene" uid="uid://cbjxova0lx302" path="res://scenes/Barrel.tscn" id="3_jlftl"]
-[ext_resource type="PackedScene" uid="uid://chfg5ni3326cg" path="res://scenes/PickUpBuff.tscn" id="3_sgont"]
-[ext_resource type="PackedScene" uid="uid://e63swbhjigva" path="res://scenes/PlayerInventory.tscn" id="3_wwxcu"]
-[ext_resource type="PackedScene" uid="uid://1cjf7wfu41s8" path="res://scenes/pickUpDebuff.tscn" id="4_jlftl"]
-[ext_resource type="PackedScene" uid="uid://iwowh8ti8qw4" path="res://scenes/pickUpEnergy.tscn" id="4_pv1nr"]
+[ext_resource type="PackedScene" path="res://scenes/Barrel.tscn" id="3_jlftl"]
+[ext_resource type="PackedScene" path="res://scenes/PickUpBuff.tscn" id="3_sgont"]
+[ext_resource type="PackedScene" path="res://scenes/PlayerInventory.tscn" id="3_wwxcu"]
+[ext_resource type="PackedScene" path="res://scenes/pickUpDebuff.tscn" id="4_jlftl"]
+[ext_resource type="PackedScene" path="res://scenes/pickUpEnergy.tscn" id="4_pv1nr"]
 [ext_resource type="PackedScene" uid="uid://c1nfqhyokjuob" path="res://scenes/spawn_object.tscn" id="10_timml"]
+[ext_resource type="PackedScene" uid="uid://ln3negcncm65" path="res://scenes/enemy.tscn" id="11_fj6jv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ox4vl"]
 resource_name = "Ground&Grass"
@@ -798,3 +799,6 @@ position = Vector2(-108, 47)
 
 [node name="SpawnObject" parent="." instance=ExtResource("10_timml")]
 position = Vector2(419, -21)
+
+[node name="Enemy" parent="." instance=ExtResource("11_fj6jv")]
+position = Vector2(131, 77)
