@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class Player : CharacterBody2D
 {
@@ -13,6 +14,9 @@ public partial class Player : CharacterBody2D
     [Export] public Area2D InteractableArea;
     [Export] public AudioStreamPlayer Quack;
     [Export] public Teleport TeleportSkill;
+    private List<InteractableComponent> _nearbyObjects = [];
+    [Export] public PlayerInventory Inventory;
+
     public bool IsTeleporting = false;
 
     public override void _Ready()
@@ -23,11 +27,13 @@ public partial class Player : CharacterBody2D
     public override void _EnterTree()
     {
         InteractableArea.AreaEntered += InteractableAreaOnAreaEntered;
+        InteractableArea.AreaExited += InteractableAreaOnAreaExited;
     }
 
     public override void _ExitTree()
     {
         InteractableArea.AreaEntered -= InteractableAreaOnAreaEntered;
+        InteractableArea.AreaExited -= InteractableAreaOnAreaExited;
     }
 
     public override void _Input(InputEvent @event)
@@ -36,6 +42,32 @@ public partial class Player : CharacterBody2D
         {
             TryTeleport();
         }
+
+        if (Input.IsActionJustPressed("E"))
+        {
+            var body = FindClosestObject();
+            if (body == null)
+                return;
+            body.Interact(this);
+            _nearbyObjects.Remove(body);
+        }
+
+    }
+    private InteractableComponent FindClosestObject()
+    {
+        InteractableComponent closestObject = null;
+        var closestDistance = float.MaxValue;
+        foreach (var obj in _nearbyObjects)
+        {
+            var distance = (obj.GlobalPosition - GlobalPosition).Length();
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestObject = obj;
+            }
+        }
+
+        return closestObject;
     }
 
     private void InteractableAreaOnAreaEntered(Area2D area)
@@ -51,6 +83,17 @@ public partial class Player : CharacterBody2D
                 GetBuff(buff);
             }
         }
+        if (area is InteractableComponent interactableComponent)
+        {
+            _nearbyObjects.Add(interactableComponent);
+            GD.Print(area.GetParent().Name);
+        }
+    }
+    
+    private void InteractableAreaOnAreaExited(Area2D area)
+    {
+        if (area is InteractableComponent interactableComponent)
+            _nearbyObjects.Remove(interactableComponent);
     }
 
     private async void GetDebuff(PickUpDebuff debuff)

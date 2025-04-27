@@ -1,10 +1,15 @@
-[gd_scene load_steps=14 format=3 uid="uid://bw6s1padjqn13"]
+[gd_scene load_steps=16 format=3 uid="uid://bw6s1padjqn13"]
 
 [ext_resource type="Script" uid="uid://uajmvxlcvr7s" path="res://scripts/CrystalStation.cs" id="1_18w5w"]
 [ext_resource type="Texture2D" uid="uid://ctco4wgrt3yot" path="res://sprites/Tilesets/MagicMarket/Animations/Crystal.png" id="1_rfaiq"]
+[ext_resource type="PackedScene" uid="uid://jq70b0sx8r43" path="res://scenes/InteractableComponent.tscn" id="2_1empt"]
 [ext_resource type="Texture2D" uid="uid://djc70lllkq0ka" path="res://sprites/Tilesets/MagicMarket/Animations/DestroyCristal.png" id="2_kcpdb"]
 [ext_resource type="PackedScene" uid="uid://drjjku3svgnt2" path="res://scenes/EnergyBar.tscn" id="3_kcpdb"]
 [ext_resource type="AudioStream" uid="uid://c63qvsay1n56" path="res://sounds/breaking-glass-83809.mp3" id="5_btpws"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3rpwc"]
+radius = 15.0
+height = 41.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3rpwc"]
 atlas = ExtResource("2_kcpdb")
@@ -64,7 +69,7 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i6wst"]
 height = 24.0
 
-[node name="CrystalStation" type="StaticBody2D" node_paths=PackedStringArray("EnergyBar", "Timer", "AnimatedSprite", "BreakingAudio")]
+[node name="CrystalStation" type="StaticBody2D" node_paths=PackedStringArray("EnergyBar", "Timer", "AnimatedSprite", "BreakingAudio", "InteractableComponent")]
 y_sort_enabled = true
 scale = Vector2(2, 2)
 script = ExtResource("1_18w5w")
@@ -72,6 +77,17 @@ EnergyBar = NodePath("EnergyBar")
 Timer = NodePath("Timer")
 AnimatedSprite = NodePath("Sprite2D")
 BreakingAudio = NodePath("AudioStreamPlayer")
+EnergyPerSecond = 3
+InteractableComponent = NodePath("InteractableComponent")
+EnergyFromItem = 15
+
+[node name="InteractableComponent" parent="." instance=ExtResource("2_1empt")]
+MultiplyUse = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_3rpwc")
+debug_color = Color(0.835891, 0.333337, 0.51974, 0.42)
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_3rpwc")

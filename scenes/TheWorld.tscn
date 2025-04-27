@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://dej53n5hmpa1f"]
+[gd_scene load_steps=16 format=4 uid="uid://dej53n5hmpa1f"]
 
 [ext_resource type="PackedScene" uid="uid://dyroiteeyjytp" path="res://scenes/player.tscn" id="1_ox4vl"]
 [ext_resource type="Texture2D" uid="uid://ctjrvrr81nw0e" path="res://sprites/Tilesets/MagicMarket/Tilesets/TilesetFloor.png" id="1_qpou0"]
@@ -6,7 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://bw6s1padjqn13" path="res://scenes/CrystalStation.tscn" id="3_80w00"]
 [ext_resource type="PackedScene" uid="uid://cbjxova0lx302" path="res://scenes/Barrel.tscn" id="3_jlftl"]
 [ext_resource type="PackedScene" uid="uid://chfg5ni3326cg" path="res://scenes/PickUpBuff.tscn" id="3_sgont"]
+[ext_resource type="PackedScene" uid="uid://e63swbhjigva" path="res://scenes/PlayerInventory.tscn" id="3_wwxcu"]
 [ext_resource type="PackedScene" uid="uid://1cjf7wfu41s8" path="res://scenes/pickUpDebuff.tscn" id="4_jlftl"]
+[ext_resource type="PackedScene" uid="uid://iwowh8ti8qw4" path="res://scenes/pickUpEnergy.tscn" id="4_pv1nr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ox4vl"]
 resource_name = "Ground&Grass"
@@ -727,8 +729,22 @@ tile_set = SubResource("TileSet_rpq2v")
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Player" parent="." node_paths=PackedStringArray("TeleportSkill") instance=ExtResource("1_ox4vl")]
+[node name="PlayerInventory" parent="CanvasLayer" instance=ExtResource("3_wwxcu")]
+offset_top = 55.0
+offset_bottom = 55.0
+
+[node name="Player" parent="." node_paths=PackedStringArray("TeleportSkill", "Inventory") instance=ExtResource("1_ox4vl")]
 TeleportSkill = NodePath("../CanvasLayer/Teleport")
+Inventory = NodePath("../CanvasLayer/PlayerInventory")
+
+[node name="PickUpEnergy" parent="." instance=ExtResource("4_pv1nr")]
+position = Vector2(229, -22)
+
+[node name="PickUpEnergy2" parent="." instance=ExtResource("4_pv1nr")]
+position = Vector2(85, 99)
+
+[node name="PickUpEnergy3" parent="." instance=ExtResource("4_pv1nr")]
+position = Vector2(152, 180)
 
 [node name="CrystalStation2" parent="." instance=ExtResource("3_80w00")]
 position = Vector2(218, 113)

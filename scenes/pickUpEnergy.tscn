@@ -1,0 +1,77 @@
+[gd_scene load_steps=10 format=3 uid="uid://iwowh8ti8qw4"]
+
+[ext_resource type="PackedScene" uid="uid://jq70b0sx8r43" path="res://scenes/InteractableComponent.tscn" id="1_j1roi"]
+[ext_resource type="Script" uid="uid://bq77tqpah5ft2" path="res://scripts/PickUpEnergy.cs" id="1_l8cb6"]
+[ext_resource type="Texture2D" uid="uid://brtgv13me00du" path="res://sprites/Tilesets/MagicMarket/Animations/Plant01.png" id="2_yui7b"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yui7b"]
+radius = 8.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l8cb6"]
+atlas = ExtResource("2_yui7b")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1hu5p"]
+atlas = ExtResource("2_yui7b")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_we0en"]
+atlas = ExtResource("2_yui7b")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e46mv"]
+atlas = ExtResource("2_yui7b")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ftotv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l8cb6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1hu5p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_we0en")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e46mv")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[node name="PickUpEnergy" type="Node2D" node_paths=PackedStringArray("AnimatedSprite", "InteractableComponent")]
+y_sort_enabled = true
+script = ExtResource("1_l8cb6")
+AnimatedSprite = NodePath("AnimatedSprite2D")
+InteractableComponent = NodePath("InteractableComponent")
+
+[node name="InteractableComponent" parent="." instance=ExtResource("1_j1roi")]
+AutoDispose = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent"]
+shape = SubResource("CircleShape2D_yui7b")
+debug_color = Color(0.72662, 0.348346, 0.821157, 0.42)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ftotv")
+animation = &"Idle"
+frame = 3
+frame_progress = 0.761322
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+self_modulate = Color(0.296261, 0.746535, 0.438453, 1)
+emitting = false
+amount = 20
+lifetime = 0.3
+one_shot = true
+randomness = 0.42
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 50.49
