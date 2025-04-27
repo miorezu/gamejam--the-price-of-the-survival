@@ -4,6 +4,7 @@ using System;
 public partial class CrystalStation : StaticBody2D
 {
     [Export] public TextureProgressBar EnergyBar;
+    [Export] public int MaxEnergy;
     [Export] public Timer Timer;
     [Export] public AnimatedSprite2D AnimatedSprite;
     [Export] public AudioStreamPlayer BreakingAudio;
@@ -11,7 +12,6 @@ public partial class CrystalStation : StaticBody2D
     [Export] public InteractableComponent InteractableComponent;
     [Export] public PlayerInventory.ItemTypes Type;
     [Export] public int EnergyFromItem;
-    
 
     public override void _EnterTree()
     {
@@ -23,6 +23,11 @@ public partial class CrystalStation : StaticBody2D
     {
         Timer.Timeout -= TimerOnTimeout;
         InteractableComponent.PlayerInteracted -= OnPlayerInteracted;
+    }
+
+    public override void _Ready()
+    {
+        EnergyBar.Value = EnergyBar.MaxValue = MaxEnergy;
     }
 
     public override void _Process(double delta)
@@ -38,9 +43,11 @@ public partial class CrystalStation : StaticBody2D
     {
         BreakingAudio.Play();
         AnimatedSprite.Play("Destroing");
-        AnimatedSprite.AnimationFinished += () =>  AnimatedSprite.Play("Broken");
+        AnimatedSprite.AnimationFinished += () => AnimatedSprite.Play("Broken");
         SetProcess(false);
         Timer.Stop();
+        EnergyBar.QueueFree();
+        InteractableComponent.QueueFree();
     }
 
     private void TimerOnTimeout()
@@ -53,7 +60,7 @@ public partial class CrystalStation : StaticBody2D
         EnergyBar.Value -= EnergyPerSecond;
     }
 
-    public void AddEnergy()
+    private void AddEnergy()
     {
         EnergyBar.Value += EnergyFromItem;
     }
@@ -64,6 +71,7 @@ public partial class CrystalStation : StaticBody2D
         {
             AddEnergy();
         }
+
         player.Inventory.DecreaseItem(Type);
     }
 }

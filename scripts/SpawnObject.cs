@@ -31,7 +31,7 @@ public partial class SpawnObject : Area2D
             var spawnAreaSize = areaShape.Size;
             var x = GD.RandRange(-areaShape.Size.X / 2, spawnAreaSize.X / 2);
             var y = GD.RandRange(-spawnAreaSize.Y / 2, spawnAreaSize.Y / 2);
-            spawnObject.GlobalPosition += new Vector2((float) x, (float) y);
+            spawnObject.GlobalPosition += new Vector2((float)x, (float)y);
             GetParent().AddChild(spawnObject);
         }
     }

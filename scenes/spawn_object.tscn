@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c1nfqhyokjuob"]
 
 [ext_resource type="Script" uid="uid://ethkhs346eg0" path="res://scripts/SpawnObject.cs" id="1_acba5"]
-[ext_resource type="PackedScene" path="res://scenes/pickUpEnergy.tscn" id="2_6nukc"]
+[ext_resource type="PackedScene" uid="uid://iwowh8ti8qw4" path="res://scenes/pickUpEnergy.tscn" id="2_6nukc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tjsvi"]
 size = Vector2(150, 150)

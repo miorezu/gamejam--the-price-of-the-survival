@@ -82,10 +82,7 @@ public partial class Player : CharacterBody2D
             {
                 GetBuff(buff);
             }
-        }
-        if (area is InteractableComponent interactableComponent)
-        {
-            _nearbyObjects.Add(interactableComponent);
+            _nearbyObjects.Add(component);
             GD.Print(area.GetParent().Name);
         }
     }

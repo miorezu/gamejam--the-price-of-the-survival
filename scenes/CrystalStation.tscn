@@ -2,15 +2,15 @@
 
 [ext_resource type="Script" uid="uid://uajmvxlcvr7s" path="res://scripts/CrystalStation.cs" id="1_18w5w"]
 [ext_resource type="Texture2D" uid="uid://ctco4wgrt3yot" path="res://sprites/Tilesets/MagicMarket/Animations/Crystal.png" id="1_rfaiq"]
-[ext_resource type="PackedScene" path="res://scenes/InteractableComponent.tscn" id="2_1empt"]
+[ext_resource type="PackedScene" uid="uid://jq70b0sx8r43" path="res://scenes/InteractableComponent.tscn" id="2_1empt"]
 [ext_resource type="Texture2D" uid="uid://djc70lllkq0ka" path="res://sprites/Tilesets/MagicMarket/Animations/DestroyCristal.png" id="2_kcpdb"]
-[ext_resource type="PackedScene" path="res://scenes/EnergyBar.tscn" id="3_kcpdb"]
+[ext_resource type="PackedScene" uid="uid://drjjku3svgnt2" path="res://scenes/EnergyBar.tscn" id="3_kcpdb"]
 [ext_resource type="Texture2D" uid="uid://ctvc16ycdpduk" path="res://sprites/Crystaldestroy.png" id="4_3rpwc"]
 [ext_resource type="AudioStream" uid="uid://c63qvsay1n56" path="res://sounds/breaking-glass-83809.mp3" id="5_btpws"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3rpwc"]
 radius = 15.0
-height = 41.0
+height = 38.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3rpwc"]
 atlas = ExtResource("2_kcpdb")
@@ -150,6 +150,7 @@ y_sort_enabled = true
 scale = Vector2(2, 2)
 script = ExtResource("1_18w5w")
 EnergyBar = NodePath("EnergyBar")
+MaxEnergy = 50
 Timer = NodePath("Timer")
 AnimatedSprite = NodePath("Sprite2D")
 BreakingAudio = NodePath("AudioStreamPlayer")
@@ -168,8 +169,6 @@ debug_color = Color(0.835891, 0.333337, 0.51974, 0.42)
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_3rpwc")
 animation = &"Destroing"
-frame = 9
-frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)

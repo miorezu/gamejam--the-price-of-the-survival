@@ -12,7 +12,7 @@ public partial class PlayerInventory : Control
     {
         MagicFlower,
     }
-    
+
     public void IncreaseItem(ItemTypes itemType)
     {
         if (Items.ContainsKey(itemType))
@@ -27,6 +27,7 @@ public partial class PlayerInventory : Control
         AddNewDisplayItem(itemType);
         Output();
     }
+
     private void AddNewDisplayItem(ItemTypes itemType)
     {
         var displayItem = DisplayItem.Instantiate<DisplayItem>();
@@ -34,6 +35,7 @@ public partial class PlayerInventory : Control
         displayItem.Show(OneOutput(itemType));
         DisplayItemsParent.AddChild(displayItem);
     }
+
     private void UpdateDisplayItem(ItemTypes itemType)
     {
         Array<Node> children = DisplayItemsParent.GetChildren();
@@ -46,6 +48,28 @@ public partial class PlayerInventory : Control
         }
     }
     
+    public void DecreaseItem(ItemTypes itemType)
+    {
+        if (!HaveItem(itemType))
+        {
+            GD.Print("no item " + itemType);
+            return;
+        }
+
+        Items[itemType]--;
+        UpdateDisplayItem(itemType);
+    }
+
+    public bool HaveItem(ItemTypes itemType)
+    {
+        if (Items == null || !Items.ContainsKey(itemType) || Items[itemType] == 0)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     private string OneOutput(ItemTypes itemType)
     {
         return ($"{itemType} : {Items[itemType]}");
@@ -57,21 +81,5 @@ public partial class PlayerInventory : Control
         {
             GD.Print($"{pair.Key} : {pair.Value}");
         }
-    }
-
-    public void DecreaseItem(ItemTypes itemType)
-    {
-        if (!HaveItem(itemType))
-        {
-            GD.Print("no item " + itemType);
-            return;
-        }
-        Items[itemType]--;
-        UpdateDisplayItem(itemType);
-    }
-
-    public bool HaveItem(ItemTypes itemType)
-    {
-        return Items[itemType] != 0;
     }
 }

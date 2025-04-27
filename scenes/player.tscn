@@ -310,8 +310,8 @@ animations = [{
 size = Vector2(38, 54)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tuyoq"]
-radius = 29.9996
-height = 103.979
+radius = 41.9897
+height = 127.998
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y4r1p"]
 atlas = ExtResource("7_smehm")
