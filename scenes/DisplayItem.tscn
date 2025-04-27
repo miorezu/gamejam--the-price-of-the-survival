@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bg15qx2u2cdej"]
+[gd_scene load_steps=3 format=3 uid="uid://bg15qx2u2cdej"]
 
 [ext_resource type="Script" uid="uid://cjn6svrxb4i1s" path="res://scripts/DisplayItem.cs" id="1_un7hh"]
+[ext_resource type="FontFile" uid="uid://c2lrp2gmerqda" path="res://fonts/000webfont1.ttf" id="2_s23ol"]
 
 [node name="DisplayItem" type="Control" node_paths=PackedStringArray("Label")]
 layout_mode = 3
@@ -16,4 +17,6 @@ Label = NodePath("Label")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
+scale = Vector2(2, 2)
+theme_override_fonts/font = ExtResource("2_s23ol")
 text = "Items"
