@@ -3,91 +3,73 @@ using System;
 
 public partial class Enemy : CharacterBody2D
 {
-    [Export] public int Speed = 100;
-    [Export] public Area2D DetectionArea;
-
-
-    private CrystalStation _currentTarget = null;
-
+    [Export] public Area2D SeeArea;
+    [Export] public Timer DirectionTimer;
+    [Export] public int Speed;
+    [Export] public AnimatedSprite2D Animation;
+    private CrystalStation _station;
 
     public override void _Ready()
     {
-        if (DetectionArea == null)
-        {
-            GD.PrintErr("DetectionArea is not assigned in the Enemy script!");
-        }
+        ChangeDirection();
     }
-
 
     public override void _EnterTree()
     {
-        if (DetectionArea != null)
-        {
-            DetectionArea.BodyEntered += OnDetectionAreaBodyEntered;
-
-            DetectionArea.BodyExited += OnDetectionAreaBodyExited;
-        }
+        DirectionTimer.Timeout += ChangeDirection;
+        SeeArea.BodyEntered += ChaseStation;
     }
-
 
     public override void _ExitTree()
     {
-        if (DetectionArea != null)
-        {
-            DetectionArea.BodyEntered -= OnDetectionAreaBodyEntered;
-            DetectionArea.BodyExited -= OnDetectionAreaBodyExited;
-        }
+        DirectionTimer.Timeout -= ChangeDirection;
+        SeeArea.BodyEntered -= ChaseStation;
     }
-
 
     public override void _Process(double delta)
     {
-        Vector2 targetPosition;
+        Animation.Play("EnemyMove");
 
-
-        if (_currentTarget != null && IsInstanceValid(_currentTarget))
+        if (_station != null)
         {
-            targetPosition = _currentTarget.GlobalPosition;
-        }
-        else
-        {
-            targetPosition = Vector2.Zero;
-            _currentTarget = null;
-        }
+            Vector2 direction = (_station.GlobalPosition - GlobalPosition).Normalized();
 
+            Velocity += direction;
+            Velocity = Velocity.Normalized() * Speed;
 
-        if (GlobalPosition.DistanceSquaredTo(targetPosition) > 1.0f)
-        {
-            Vector2 direction = (targetPosition - GlobalPosition).Normalized();
-
-            Velocity = direction * Speed;
+            if (direction.X < 0) 
+            {
+                Animation.FlipH = true;
+            }
+            else if (direction.X > 0) 
+            {
+                Animation.FlipH = false;
+            }
         }
-        else
-        {
-            Velocity = Vector2.Zero;
-        }
-
 
         MoveAndSlide();
     }
 
+    private void ChangeDirection()
+    {
+        Velocity = Velocity.Normalized();
+        Velocity += new Vector2(GD.RandRange(-1, 1), GD.RandRange(-1, 1));
+        Velocity = Velocity.Normalized() * Speed;
+    }
 
-    private void OnDetectionAreaBodyEntered(Node2D body)
+    private void ChaseStation(Node2D body)
     {
         if (body is CrystalStation station)
         {
-            GD.Print("CrystalStation detected by type!");
-            _currentTarget = station;
+            _station = station;
+
+            Die();
         }
     }
 
-
-    private void OnDetectionAreaBodyExited(Node2D body)
+    private void Die()
     {
-        if (body == _currentTarget)
-        {
-            GD.Print("CrystalStation lost!");
-            _currentTarget = null;
-        }
+        GD.Print("Enemy died!");
+        QueueFree();
     }
 }

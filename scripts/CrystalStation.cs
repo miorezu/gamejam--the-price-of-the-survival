@@ -50,6 +50,7 @@ public partial class CrystalStation : StaticBody2D
         Timer.Stop();
         EnergyBar.QueueFree();
         InteractableComponent.QueueFree();
+        
     }
 
     private void TimerOnTimeout()
@@ -75,5 +76,10 @@ public partial class CrystalStation : StaticBody2D
         }
 
         player.Inventory.DecreaseItem(Type);
+    }
+    
+    public void ReduceEnergy(int damage)
+    {
+        EnergyBar.Value -= damage;
     }
 }

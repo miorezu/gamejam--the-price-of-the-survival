@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://uajmvxlcvr7s" path="res://scripts/CrystalStation.cs" id="1_18w5w"]
 [ext_resource type="Texture2D" uid="uid://ctco4wgrt3yot" path="res://sprites/Tilesets/MagicMarket/Animations/Crystal.png" id="1_rfaiq"]
-[ext_resource type="PackedScene" path="res://scenes/InteractableComponent.tscn" id="2_1empt"]
+[ext_resource type="PackedScene" uid="uid://jq70b0sx8r43" path="res://scenes/InteractableComponent.tscn" id="2_1empt"]
 [ext_resource type="Texture2D" uid="uid://djc70lllkq0ka" path="res://sprites/Tilesets/MagicMarket/Animations/DestroyCristal.png" id="2_kcpdb"]
-[ext_resource type="PackedScene" path="res://scenes/EnergyBar.tscn" id="3_kcpdb"]
+[ext_resource type="PackedScene" uid="uid://drjjku3svgnt2" path="res://scenes/EnergyBar.tscn" id="3_kcpdb"]
 [ext_resource type="Texture2D" uid="uid://ctvc16ycdpduk" path="res://sprites/Crystaldestroy.png" id="4_3rpwc"]
 [ext_resource type="AudioStream" uid="uid://c63qvsay1n56" path="res://sounds/breaking-glass-83809.mp3" id="5_btpws"]
 [ext_resource type="PackedScene" uid="uid://bjb4veojbibf2" path="res://scenes/HurtBox.tscn" id="6_i6wst"]
@@ -144,10 +144,11 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_j5j6h"]
-radius = 7.5
+radius = 9.5
+height = 34.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i6wst"]
-height = 24.0
+height = 20.0
 
 [node name="CrystalStation" type="StaticBody2D" node_paths=PackedStringArray("EnergyBar", "Timer", "AnimatedSprite", "BreakingAudio", "InteractableComponent", "HurtBox")]
 y_sort_enabled = true
@@ -158,7 +159,7 @@ MaxEnergy = 100
 Timer = NodePath("Timer")
 AnimatedSprite = NodePath("Sprite2D")
 BreakingAudio = NodePath("AudioStreamPlayer")
-EnergyPerSecond = 1
+EnergyPerSecond = 5
 InteractableComponent = NodePath("InteractableComponent")
 EnergyFromItem = 15
 HurtBox = NodePath("HurtBox")
@@ -176,6 +177,7 @@ sprite_frames = SubResource("SpriteFrames_3rpwc")
 animation = &"Destroing"
 
 [node name="HurtBox" parent="." instance=ExtResource("6_i6wst")]
+MaxHp = 40
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("CapsuleShape2D_j5j6h")

@@ -15,19 +15,18 @@ public partial class HurtBox : Area2D
 
     public void TakeDamage(int damage)
     {
-        if (damage >= _currentHp)
+        _currentHp -= damage;
+        _currentHp = Mathf.Max(_currentHp, 0);
+
+        if (GetParent() is CrystalStation station)
         {
-            UpdateHp(damage);
-            Die();
-            return;
+            station.ReduceEnergy(damage);
         }
 
-        UpdateHp(damage);
-    }
-
-    private void UpdateHp(int damage)
-    {
-        _currentHp -= damage;
+        if (_currentHp <= 0)
+        {
+            Die();
+        }
     }
 
     private void Die()
@@ -36,6 +35,7 @@ public partial class HurtBox : Area2D
         {
             return;
         }
+
         GetParent().QueueFree();
     }
 

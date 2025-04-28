@@ -1,7 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://ln3negcncm65"]
+[gd_scene load_steps=15 format=3 uid="uid://cy6tfwrpyn1v4"]
 
 [ext_resource type="Script" uid="uid://cyenstku1bs0h" path="res://Enemy.cs" id="1_md0e3"]
 [ext_resource type="Texture2D" uid="uid://bxh5s0rwti7x" path="res://sprites/Enemy/violet wizard right.png" id="2_4ra3w"]
+[ext_resource type="PackedScene" uid="uid://cpa2xx3r21mjn" path="res://scenes/HitBox.tscn" id="3_5uy6h"]
+[ext_resource type="PackedScene" uid="uid://bjb4veojbibf2" path="res://scenes/HurtBox.tscn" id="4_c4w8v"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5uy6h"]
 atlas = ExtResource("2_4ra3w")
@@ -56,22 +58,45 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w8i8w"]
 size = Vector2(18, 30.5)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_md0e3"]
-radius = 67.5
-height = 197.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xwavj"]
+radius = 12.0
+height = 38.0
 
-[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("DetectionArea")]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_md0e3"]
+radius = 23.5
+height = 73.0
+
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("SeeArea", "DirectionTimer", "Animation")]
+y_sort_enabled = true
 script = ExtResource("1_md0e3")
-DetectionArea = NodePath("Area2D")
+SeeArea = NodePath("Area2D")
+DirectionTimer = NodePath("Timer")
+Speed = 25
+Animation = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_8qclf")
 animation = &"EnemyMove"
-frame_progress = 0.0970986
+frame_progress = 0.208262
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.25)
 shape = SubResource("RectangleShape2D_w8i8w")
+
+[node name="HurtBox" parent="." instance=ExtResource("4_c4w8v")]
+MaxHp = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CapsuleShape2D_xwavj")
+debug_color = Color(0.138479, 0.607041, 0.619111, 0.42)
+
+[node name="HitBox" parent="." node_paths=PackedStringArray("ExceptHurtbox") instance=ExtResource("3_5uy6h")]
+Damage = 30
+ExceptHurtbox = NodePath("../HurtBox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CapsuleShape2D_xwavj")
+debug_color = Color(0.138479, 0.607041, 0.619111, 0.42)
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -80,3 +105,7 @@ position = Vector2(2.5, 0.5)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_md0e3")
 debug_color = Color(0.780392, 0.0156863, 0.164706, 0.419608)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
